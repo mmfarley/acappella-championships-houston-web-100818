@@ -10,49 +10,45 @@ let winningGroup;
 let removingGroup;
 let sortValue;
 
-// const sorter = function(attribute) {
-//   allGroups.sort(function(a, b) {
-//     var groupA = a.attribute.toUpperCase();
-//     var groupB = b.attribute.toUpperCase();
-//     return groupA < groupB ? -1 : groupA > groupB ? 1 : 0;
-//   });
-// };
-
-collegeHeader.addEventListener("click", function() {
-  // sortBy = college.name
-  // sorter(sortBy);
+const sortAndRender = function(attribute) {
   allGroups.sort(function(a, b) {
-    var groupA = a.college.name.toUpperCase();
-    var groupB = b.college.name.toUpperCase();
+    let groupA;
+    let groupB;
+    switch (attribute) {
+      case "college":
+        groupA = a.college.name;
+        groupB = b.college.name;
+        break;
+      case "name":
+        groupA = a.name;
+        groupB = b.name;
+        break;
+      case "membership":
+        groupA = a.college.name;
+        groupB = b.college.name;
+        break;
+      case "division":
+        groupA = a.college.division;
+        groupB = b.college.division;
+    }
     return groupA < groupB ? -1 : groupA > groupB ? 1 : 0;
   });
   renderGroups(allGroups);
+};
+
+collegeHeader.addEventListener("click", function() {
+  sortAndRender("college");
 });
 
 nameHeader.addEventListener("click", function() {
-  allGroups.sort(function(a, b) {
-    var groupA = a.name.toUpperCase();
-    var groupB = b.name.toUpperCase();
-    return groupA < groupB ? -1 : groupA > groupB ? 1 : 0;
-  });
-  renderGroups(allGroups);
+  sortAndRender("name");
 });
 
 membershipHeader.addEventListener("click", function() {
-  allGroups.sort(function(a, b) {
-    var groupA = a.membership.toUpperCase();
-    var groupB = b.membership.toUpperCase();
-    return groupA < groupB ? -1 : groupA > groupB ? 1 : 0;
-  });
-  renderGroups(allGroups);
+  sortAndRender("membership");
 });
 divisionHeader.addEventListener("click", function() {
-  allGroups.sort(function(a, b) {
-    var groupA = a.college.division.toUpperCase();
-    var groupB = b.college.division.toUpperCase();
-    return groupA < groupB ? -1 : groupA > groupB ? 1 : 0;
-  });
-  renderGroups(allGroups);
+  sortAndRender("division");
 });
 
 const fetchFunc = function() {
