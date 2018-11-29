@@ -1,33 +1,37 @@
 const tableBody = document.querySelector("#table-body");
 const winnerBanner = document.querySelector("#winner");
-const collegeHeader = document.querySelector("#college");
-const nameHeader = document.querySelector("#group-name");
-const membershipHeader = document.querySelector("#membership");
-const divisionHeader = document.querySelector("#division");
+const allHeaders = document.querySelectorAll("#header");
 
 let allGroups;
 let winningGroup;
 let removingGroup;
 let sortValue;
 
+allHeaders.forEach(function(header) {
+  header.addEventListener("click", function(e) {
+    sortBy = e.target.innerText;
+    sortAndRender(sortBy);
+  });
+});
+
 const sortAndRender = function(attribute) {
   allGroups.sort(function(a, b) {
     let groupA;
     let groupB;
     switch (attribute) {
-      case "college":
+      case "College":
         groupA = a.college.name;
         groupB = b.college.name;
         break;
-      case "name":
+      case "Group Name":
         groupA = a.name;
         groupB = b.name;
         break;
-      case "membership":
+      case "Membership":
         groupA = a.college.name;
         groupB = b.college.name;
         break;
-      case "division":
+      case "Division":
         groupA = a.college.division;
         groupB = b.college.division;
     }
@@ -35,21 +39,6 @@ const sortAndRender = function(attribute) {
   });
   renderGroups(allGroups);
 };
-
-collegeHeader.addEventListener("click", function() {
-  sortAndRender("college");
-});
-
-nameHeader.addEventListener("click", function() {
-  sortAndRender("name");
-});
-
-membershipHeader.addEventListener("click", function() {
-  sortAndRender("membership");
-});
-divisionHeader.addEventListener("click", function() {
-  sortAndRender("division");
-});
 
 const fetchFunc = function() {
   fetch("http://localhost:3000/a_cappella_groups")
